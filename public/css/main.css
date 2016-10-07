@@ -1,7 +1,39 @@
-.hidden{
+*{
+	padding: 0;
+	margin: 0;
+}
+
+input {
+	outline:none;
+	border-width: 2px;
+	border-style: solid;
+}
+
+.wrapper{
+	padding: 25px;
+}
+
+.wrapper > *{
+	display: inline-block;
+	padding:5px;
+}
+
+.valid{
   display: none;
 }
 
-.visible{
+.invalid{
   color:red;
+}
+
+.input{
+	border-color: black;
+}
+
+.valid-input{
+	border-color: green;
+}
+
+.invalid-input{
+	border-color: red;
 }
