@@ -1,22 +1,31 @@
 var CCV2 = React.createClass({
   getInitialState: function(){
     return {
-      isCCV2Valid: true
+      ccv2Valid: null
     };
   },
 
   ccv2OnChange: function(event){
     var value = event.target.value;
-    this.setState({
-      isCCV2Valid: 100 <= value && value <= 999
-    });
+
+    this.serverRequest = $.post("/api/ccv2", {value}, function (result) {
+      this.setState({
+        ccv2Valid: result.ccv2Valid
+      });
+    }.bind(this));
   },
 
   render: function() {
     return (
-      <div>
-        <input type="number" placeholder="CCV2" onChange={this.ccv2OnChange}/>
-        <p className={this.state.isCCV2Valid?"hidden":"visible"}>CCV2 is not valid!</p>
+      <div className="wrapper">
+        <label htmlFor="ccv2">CCV2 </label>
+        <input 
+          className={this.state.ccv2Valid == null ? "input" : this.state.ccv2Valid ? "valid-input" : "invalid-input"} 
+          type="number" 
+          placeholder="Type your CCV2 code" 
+          onChange={this.ccv2OnChange}
+          name="ccv2"/>
+        <p className={this.state.ccv2Valid == null || this.state.ccv2Valid ? "valid" : "invalid"}>CCV2 is not valid!</p>
       </div>
     );
   }
